@@ -49,7 +49,7 @@ public class API {
 			artista.setServiceUrl(this.itunesArtistaEndpoint); 
 			 
 			this.artistas.add(artista);		  
-			//System.out.println(artista);
+		
 		}
 		 
 		People[] people = this.consultarPeopleTvmaze(artistName);
@@ -67,7 +67,7 @@ public class API {
 			artista.setServiceUrl(this.tvmazePeopleEndpoint);
 			
 			this.artistas.add(artista);	
-			//System.out.println(p);
+			
 		}
 		 
 		this.applyFiltersToArtistArray(exactMatch);
@@ -75,7 +75,6 @@ public class API {
 		ObjectMapper objectMapper = new ObjectMapper();
 		 
 	    String artistaAsJason = objectMapper.writeValueAsString(this.artistas);
-	    //System.out.println(artistaAsJason);
 	    
 		return artistaAsJason;
 	}
@@ -112,10 +111,9 @@ public class API {
 			
 			for ( Artista artista: this.artistas) {
 				
-				System.out.println("comparando:"+artista.getName() +"-" + this.artistName );
+				
 				if ( artista.getName().toLowerCase().contains(this.artistName.toLowerCase()) ) 
 				{
-					System.out.println("Debo preservarla");
 					arrayTemporal.add(artista);
 				}
 			}
