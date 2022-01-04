@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,18 @@ public class ClienteService {
         
         clienteRepository.deleteById(clientData.getDniCl());
         return "Successful";
+    }
+    
+    @GetMapping(path = "/buscar/codPostal/{codPostal}")
+    public List<Cliente> buscarPorCodPostal(@PathVariable String codPostal){
+        
+        return clienteRepository.findByCodPostal(codPostal);
+    }
+
+    @GetMapping(path = "/buscar/apellidos/{apellido1}/or/{apellido2}")
+    public List<Cliente> buscarPorApellidos(@PathVariable String apellido1, @PathVariable String apellido2){
+        
+        return clienteRepository.findByApellido1OrApellido2(apellido1, apellido2);
     }
     
 }

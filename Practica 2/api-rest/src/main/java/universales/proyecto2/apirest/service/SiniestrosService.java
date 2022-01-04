@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +45,23 @@ public class SiniestrosService {
             siniestrosRepository.delete(siniestroExistente.get());
         }
         return "Successful";
+    }
+
+    @GetMapping( path = "/buscar/aceptacion/{aceptacion}" )
+    public List<Siniestros> buscarPorAceptacion(@PathVariable String aceptacion){
+        
+        return siniestrosRepository.findByAceptadoLike(aceptacion);
+    }
+
+    @GetMapping( path = "/buscar/aceptacionDistinta/{aceptacion}" )
+    public List<Siniestros> buscarPorNoAceptacion(@PathVariable String aceptacion){
+        
+        return siniestrosRepository.findByAceptadoNotLike(aceptacion);
+    }
+
+    @GetMapping( path = "/buscar/indemnizacion/{indemnizacion}" )
+    public List<Siniestros> buscarPorIndemnizacion(@PathVariable String indemnizacion){
+        
+        return siniestrosRepository.findByIndemnizacionLike(indemnizacion);
     }
 }

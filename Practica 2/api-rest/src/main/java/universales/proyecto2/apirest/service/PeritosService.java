@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,18 @@ public class PeritosService {
             peritosRepository.delete(peritoExistente.get());
         }
         return "Successful";
+    }
+
+
+    @GetMapping( path = "/buscar/por/ciudad/{ciudad}" )
+    public List<Peritos> BuscarPeritosPorCiudad(@PathVariable String ciudad){
+
+        return peritosRepository.findByCiudadLike(ciudad);
+    }
+
+    @GetMapping( path = "/buscar/sin/numeroVia" )
+    public List<Peritos> BuscarPeritosSinNumeroVia(){
+
+        return peritosRepository.findByNumeroViaIsNull();
     }
 }
