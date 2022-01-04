@@ -1,4 +1,4 @@
-package universales.practica2.apirest;
+package universales.proyecto2.apirest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

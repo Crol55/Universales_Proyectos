@@ -1,4 +1,4 @@
-package universales.practica2.apirest;
+package universales.proyecto2.apirest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
