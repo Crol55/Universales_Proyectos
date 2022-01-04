@@ -1,11 +1,17 @@
 package universales.proyecto2.apirest.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "COMPANIAS")
@@ -37,7 +43,18 @@ public class Companias implements Serializable {
     @Column(name = "NOTAS")
     private String notas;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "companiasList")
+    private List<Seguros> segurosList = new ArrayList<>();
     
+    public List<Seguros> getSegurosList() {
+        return segurosList;
+    }
+
+    public void setSegurosList(List<Seguros> segurosList) {
+        this.segurosList = segurosList;
+    }
+
     public String getNombreCompania() {
         return nombreCompania;
     }

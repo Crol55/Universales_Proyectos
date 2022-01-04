@@ -1,6 +1,7 @@
 package universales.proyecto2.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,11 +29,21 @@ public class CompaniasService {
         return companiasRepository.findAll();
     }
 
-    @PostMapping(path = "/guardar")
+    @PostMapping(path = {"/guardar", "actualizar"})
     public Companias guardar(@RequestBody Companias companiasData) {
 
         companiasRepository.save(companiasData);
         
         return companiasData;
+    }
+
+    @PostMapping( path = "/eliminar" )
+    public String eliminar(@RequestBody Companias companiaData){
+
+        Optional <Companias> companiaExistente = companiasRepository.findById(companiaData.getNombreCompania());
+        if (companiaExistente.isPresent()){
+            companiasRepository.delete(companiaExistente.get());
+        }
+        return "Successful";
     }
 }

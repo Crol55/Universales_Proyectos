@@ -1,6 +1,7 @@
 package universales.proyecto2.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,10 +27,20 @@ public class CompaniasSegurosService {
         return companiasSegurosRepository.findAll();
     }
 
-    @PostMapping(path = "/guardar")
+    @PostMapping(path = {"/guardar", "/actualizar"})
     public CompaniasSeguros guardar(@RequestBody CompaniasSeguros companiasSegurosData){
 
         companiasSegurosRepository.save(companiasSegurosData);
         return companiasSegurosData;
+    }
+
+    @PostMapping( path = "/eliminar" )
+    public String eliminar(@RequestBody CompaniasSeguros companiaSeguro){
+
+        Optional <CompaniasSeguros> seguroExistente = companiasSegurosRepository.findById(companiaSeguro.getId());
+        if (seguroExistente.isPresent()){
+            companiasSegurosRepository.delete(seguroExistente.get());
+        }
+        return "Successful";
     }
 }

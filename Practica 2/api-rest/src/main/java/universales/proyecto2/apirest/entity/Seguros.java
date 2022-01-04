@@ -1,12 +1,19 @@
 package universales.proyecto2.apirest.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -36,7 +43,30 @@ public class Seguros implements Serializable{
 
     @Column(name = "cliente_dni_cl")
     private Integer clienteDniCl;
+
     
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+    @JoinTable(name = "COMPANIAS_SEGUROS", 
+        joinColumns = {
+            @JoinColumn(name = "SEGUROS_NUMERO_POLIZA")
+        }, 
+        inverseJoinColumns = {
+            @JoinColumn(name = "COMPANIAS_NOMBRE_COMPANIA")
+        }
+    )
+    private List<Companias> companiasList = new ArrayList<>();
+
+    
+    public List<Companias> getCompaniasList() {
+        return companiasList;
+    }
+
+    public void setCompaniasList(List<Companias> companiasList) {
+        this.companiasList = companiasList;
+    }
 
     public Integer getNumeroPoliza() {
         return numeroPoliza;

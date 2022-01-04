@@ -36,7 +36,7 @@ public class ClienteService {
         return this.clienteRepository.findAll();
     }
 
-    @PostMapping(path = "/guardar")
+    @PostMapping( path = {"/guardar", "/actualizar"} )
     public Cliente guardar(@RequestBody Cliente clientData){
 
         System.out.println(clientData);
@@ -52,7 +52,13 @@ public class ClienteService {
         
         return clientData;
     }
+
+    @PostMapping( path = "/eliminar" )
+    public String eliminar(@RequestBody Cliente clientData){
+
+        
+        clienteRepository.deleteById(clientData.getDniCl());
+        return "Successful";
+    }
     
-
-
 }

@@ -1,6 +1,7 @@
 package universales.proyecto2.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,17 +22,26 @@ public class PeritosService {
     @Autowired
     PeritosRepository peritosRepository; 
 
-    @GetMapping(path = "buscar")
+    @GetMapping(path = "/buscar")
     public List<Peritos> buscar(){
 
         return peritosRepository.findAll();
     }
 
-    @PostMapping(path = "guardar")
+    @PostMapping(path = {"/guardar", "/actualizar"})
     public Peritos guardar(@RequestBody Peritos peritoData){
 
         this.peritosRepository.save(peritoData);
         return peritoData;
     }
 
+    @PostMapping( path = "/eliminar" )
+    public String eliminar(@RequestBody Peritos peritoData){
+
+        Optional <Peritos> peritoExistente = peritosRepository.findById(peritoData.getDniPerito());
+        if (peritoExistente.isPresent()){
+            peritosRepository.delete(peritoExistente.get());
+        }
+        return "Successful";
+    }
 }

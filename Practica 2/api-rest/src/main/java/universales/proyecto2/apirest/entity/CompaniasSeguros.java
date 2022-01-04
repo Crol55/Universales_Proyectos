@@ -22,6 +22,7 @@ public class CompaniasSeguros implements Serializable{
 
     @Column(name = "COMPANIAS_NOMBRE_COMPANIA")
     private String companiasNombreCompania;
+    
 
     public Integer getId() {
         return id;
