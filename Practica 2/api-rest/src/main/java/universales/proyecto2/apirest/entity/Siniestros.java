@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,13 +30,33 @@ public class Siniestros implements Serializable{
 
     @Column(name = "INDEMNIZACION")
     private String indemnizacion;
-
-    @Column(name = "SEGUROS_NUMERO_POLIZA")
+ 
+    /*@Column(name = "SEGUROS_NUMERO_POLIZA")
     private Integer segurosNumeroPoliza;
+
+    public Integer getSegurosNumeroPoliza() {
+        return segurosNumeroPoliza;
+    }
+
+    public void setSegurosNumeroPoliza(Integer segurosNumeroPoliza) {
+        this.segurosNumeroPoliza = segurosNumeroPoliza;
+    }*/
 
     @Column(name = "PERITOS_DNI_PERITO")
     private Integer peritosDniPerito;
 
+    @ManyToOne 
+    @JoinColumn(name = "SEGUROS_NUMERO_POLIZA")
+    private Seguros seguro;
+
+    public Seguros getSeguro() {
+        return seguro;
+    }
+//
+    public void setSeguro(Seguros seguro) {
+        this.seguro = seguro;
+    }
+//
     public Integer getIdSiniestro() {
         return idSiniestro;
     }
@@ -75,13 +97,6 @@ public class Siniestros implements Serializable{
         this.indemnizacion = indemnizacion;
     }
 
-    public Integer getSegurosNumeroPoliza() {
-        return segurosNumeroPoliza;
-    }
-
-    public void setSegurosNumeroPoliza(Integer segurosNumeroPoliza) {
-        this.segurosNumeroPoliza = segurosNumeroPoliza;
-    }
 
     public Integer getPeritosDniPerito() {
         return peritosDniPerito;
