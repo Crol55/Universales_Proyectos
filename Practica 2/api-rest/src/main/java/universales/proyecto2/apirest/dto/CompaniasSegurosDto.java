@@ -1,6 +1,6 @@
 package universales.proyecto2.apirest.dto;
 
-public class CompaniasSeguros {
+public class CompaniasSegurosDto {
     
     private Integer id; 
     
