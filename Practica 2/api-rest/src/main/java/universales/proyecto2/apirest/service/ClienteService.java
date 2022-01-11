@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import universales.proyecto2.apirest.dto.ClienteDto;
 import universales.proyecto2.apirest.entity.Cliente;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.ClienteRepository;
@@ -38,9 +39,10 @@ public class ClienteService {
     }
 
     @PostMapping( path = {"/guardar", "/actualizar"} )
-    public Cliente guardar(@RequestBody Cliente clientData){
+    public Cliente guardar(@RequestBody ClienteDto clienteDto){
 
-        System.out.println(clientData);
+        Cliente clientData = this.convertDtoToCliente(clienteDto);
+
         List<Seguros> segurosClientList = clientData.getSegurosList(); 
         clientData.setSegurosList(null);
 
@@ -54,10 +56,29 @@ public class ClienteService {
         return clientData;
     }
 
-    @PostMapping( path = "/eliminar" )
-    public String eliminar(@RequestBody Cliente clientData){
+    private Cliente convertDtoToCliente(ClienteDto clienteDto){
 
-        
+        Cliente newCliente = new Cliente();
+        newCliente.setDniCl(clienteDto.getDniCl());
+        newCliente.setNombreCl(clienteDto.getNombreCl());
+        newCliente.setApellido1(clienteDto.getApellido1());
+        newCliente.setApellido2(clienteDto.getApellido2());
+        newCliente.setClaseVia(clienteDto.getClaseVia());
+        newCliente.setNombreVia(clienteDto.getNombreVia());
+        newCliente.setNumeroVia(clienteDto.getNumeroVia());
+        newCliente.setCodPostal(clienteDto.getCodPostal());
+        newCliente.setCiudad(clienteDto.getCiudad());
+        newCliente.setTelefono(clienteDto.getTelefono());
+        newCliente.setObservaciones(clienteDto.getObservaciones());
+        newCliente.setSegurosList(clienteDto.getSegurosList());
+
+        return newCliente;
+    }
+
+    @PostMapping( path = "/eliminar" )
+    public String eliminar(@RequestBody ClienteDto clienteDto){
+
+        Cliente clientData = this.convertDtoToCliente(clienteDto);
         clienteRepository.deleteById(clientData.getDniCl());
         return "Successful";
     }

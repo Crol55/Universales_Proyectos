@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import universales.proyecto2.apirest.dto.PeritosDto;
 import universales.proyecto2.apirest.entity.Peritos;
 import universales.proyecto2.apirest.repository.PeritosRepository;
 
@@ -30,14 +31,17 @@ public class PeritosService {
     }
 
     @PostMapping(path = {"/guardar", "/actualizar"})
-    public Peritos guardar(@RequestBody Peritos peritoData){
+    public Peritos guardar(@RequestBody PeritosDto peritosDto){
 
+        Peritos peritoData = this.convertDtoToPeritos(peritosDto);
         this.peritosRepository.save(peritoData);
         return peritoData;
     }
 
     @PostMapping( path = "/eliminar" )
-    public String eliminar(@RequestBody Peritos peritoData){
+    public String eliminar(@RequestBody PeritosDto peritosDto){
+
+        Peritos peritoData = this.convertDtoToPeritos(peritosDto);
 
         Optional <Peritos> peritoExistente = peritosRepository.findById(peritoData.getDniPerito());
         if (peritoExistente.isPresent()){
@@ -46,15 +50,32 @@ public class PeritosService {
         return "Successful";
     }
 
+    private Peritos convertDtoToPeritos(PeritosDto peritosDto){
+
+        Peritos perito = new Peritos();
+        perito.setDniPerito(peritosDto.getDniPerito());
+        perito.setNombrePerito(peritosDto.getNombrePerito());
+        perito.setApellidoPerito(peritosDto.getApellidoPerito());
+        perito.setApellidoPerito2(peritosDto.getApellidoPerito2());
+        perito.setTelefonoContacto(peritosDto.getTelefonoContacto());
+        perito.setTelefonoOficina(peritosDto.getTelefonoOficina());
+        perito.setClaseVia(peritosDto.getClaseVia());
+        perito.setNombreVia(peritosDto.getNombreVia());
+        perito.setNumeroVia(peritosDto.getNumeroVia());
+        perito.setCodPostal(peritosDto.getCodPostal());
+        perito.setCiudad(peritosDto.getCiudad());
+
+        return perito;
+    }
 
     @GetMapping( path = "/buscar/por/ciudad/{ciudad}" )
-    public List<Peritos> BuscarPeritosPorCiudad(@PathVariable String ciudad){
+    public List<Peritos> buscarPeritosPorCiudad(@PathVariable String ciudad){
 
         return peritosRepository.findByCiudadLike(ciudad);
     }
 
     @GetMapping( path = "/buscar/sin/numeroVia" )
-    public List<Peritos> BuscarPeritosSinNumeroVia(){
+    public List<Peritos> buscarPeritosSinNumeroVia(){
 
         return peritosRepository.findByNumeroViaIsNull();
     }

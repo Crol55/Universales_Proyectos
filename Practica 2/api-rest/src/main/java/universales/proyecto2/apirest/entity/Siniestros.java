@@ -30,17 +30,6 @@ public class Siniestros implements Serializable{
 
     @Column(name = "INDEMNIZACION")
     private String indemnizacion;
- 
-    /*@Column(name = "SEGUROS_NUMERO_POLIZA")
-    private Integer segurosNumeroPoliza;
-
-    public Integer getSegurosNumeroPoliza() {
-        return segurosNumeroPoliza;
-    }
-
-    public void setSegurosNumeroPoliza(Integer segurosNumeroPoliza) {
-        this.segurosNumeroPoliza = segurosNumeroPoliza;
-    }*/
 
     @Column(name = "PERITOS_DNI_PERITO")
     private Integer peritosDniPerito;
