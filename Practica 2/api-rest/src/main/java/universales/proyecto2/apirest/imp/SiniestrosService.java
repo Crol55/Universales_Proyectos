@@ -1,36 +1,32 @@
-package universales.proyecto2.apirest.service;
+package universales.proyecto2.apirest.imp;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import universales.proyecto2.apirest.dto.SiniestrosDto;
 import universales.proyecto2.apirest.entity.Siniestros;
 import universales.proyecto2.apirest.repository.SiniestrosRepository;
+import universales.proyecto2.apirest.ws.SiniestrosServiceInterface;
 
-@RestController
-@RequestMapping("/siniestros")
-@CrossOrigin
-public class SiniestrosService {
+
+@Controller
+public class SiniestrosService implements SiniestrosServiceInterface{
     
     @Autowired 
     SiniestrosRepository siniestrosRepository; 
 
-    @GetMapping(path = {"/buscar", "/actualizar"})
+    @Override
     public List<Siniestros> buscaString() {
         
         return this.siniestrosRepository.findAll();
     }
 
-    @PostMapping(path = {"/guardar", "/actualizar"})
+    @Override
     public Siniestros buscar(@RequestBody SiniestrosDto siniestrosDto) {
         
         Siniestros siniestroData = this.convertDtoToSiniestros(siniestrosDto);
@@ -39,7 +35,7 @@ public class SiniestrosService {
         return siniestroData;
     }
 
-    @PostMapping( path = "/eliminar" )
+    @Override
     public String eliminar(@RequestBody SiniestrosDto siniestrosDto){
 
         Siniestros siniestroData = this.convertDtoToSiniestros(siniestrosDto);
@@ -50,19 +46,19 @@ public class SiniestrosService {
         return "Successful";
     }
 
-    @GetMapping( path = "/buscar/aceptacion/{aceptacion}" )
+    @Override
     public List<Siniestros> buscarPorAceptacion(@PathVariable String aceptacion){
         
         return siniestrosRepository.findByAceptadoLike(aceptacion);
     }
 
-    @GetMapping( path = "/buscar/aceptacionDistinta/{aceptacion}" )
+    @Override
     public List<Siniestros> buscarPorNoAceptacion(@PathVariable String aceptacion){
         
         return siniestrosRepository.findByAceptadoNotLike(aceptacion);
     }
 
-    @GetMapping( path = "/buscar/indemnizacion/{indemnizacion}" )
+    @Override
     public List<Siniestros> buscarPorIndemnizacion(@PathVariable String indemnizacion){
         
         return siniestrosRepository.findByIndemnizacionLike(indemnizacion);

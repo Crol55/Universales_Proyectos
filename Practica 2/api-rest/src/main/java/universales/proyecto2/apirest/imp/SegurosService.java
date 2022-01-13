@@ -1,4 +1,4 @@
-package universales.proyecto2.apirest.service;
+package universales.proyecto2.apirest.imp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,34 +7,29 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import universales.proyecto2.apirest.dto.SegurosDto;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.SegurosRepository;
+import universales.proyecto2.apirest.ws.SegurosServiceInterface;
 
-@RestController
-@RequestMapping("/seguros")
-@CrossOrigin
-public class SegurosService {
+@Component
+public class SegurosService implements SegurosServiceInterface{
     
     @Autowired
     SegurosRepository segurosRepository;
 
 
-    @GetMapping(path = "/buscar")
+    @Override
     public List<Seguros> buscaString() {
         
         return this.segurosRepository.findAll();
     }
 
-    @PostMapping(path = {"/guardar", "/actualizar"})
+    @Override
     public Seguros buscar(@RequestBody SegurosDto segurosDto) {
         
         Seguros segurosData = this.convertDtoToSeguros(segurosDto);
@@ -43,7 +38,7 @@ public class SegurosService {
         return segurosData;
     }
 
-    @PostMapping( path = "/eliminar" )
+    @Override
     public String eliminar(@RequestBody SegurosDto segurosDto){
 
         Seguros seguroData = this.convertDtoToSeguros(segurosDto);
@@ -55,13 +50,13 @@ public class SegurosService {
         return "Successful";
     }
 
-    @GetMapping( path = "/buscar/ramo/{ramo}" )
+    @Override
     public List<Seguros> buscarPorRamoLike(@PathVariable String ramo){
         
         return segurosRepository.findByRamoLike(ramo);
     }
 
-    @GetMapping(path = "/buscar/antesFecha/{fechaInicio}") 
+    @Override
     public List<Seguros> buscarPorFechaInicioAnterior(@PathVariable String fechaInicio) throws ParseException{
     
         //"23/05/2023"
@@ -69,7 +64,7 @@ public class SegurosService {
         return segurosRepository.findByFechaInicioBefore(date);
     }
 
-    @GetMapping(path = "/buscar/ordenarFechaVencimiento/{ramo}") 
+    @Override
     public List<Seguros> buscarPorVigencia(@PathVariable String ramo) {
     
         //"23/05/2023"

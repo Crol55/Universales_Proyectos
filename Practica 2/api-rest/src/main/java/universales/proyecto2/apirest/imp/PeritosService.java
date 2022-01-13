@@ -1,36 +1,31 @@
-package universales.proyecto2.apirest.service;
+package universales.proyecto2.apirest.imp;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import universales.proyecto2.apirest.dto.PeritosDto;
 import universales.proyecto2.apirest.entity.Peritos;
 import universales.proyecto2.apirest.repository.PeritosRepository;
+import universales.proyecto2.apirest.ws.PeritosServiceInterface;
 
-@RestController
-@RequestMapping("/peritos")
-@CrossOrigin
-public class PeritosService {
+@Component
+public class PeritosService implements PeritosServiceInterface{
     
     @Autowired
     PeritosRepository peritosRepository; 
 
-    @GetMapping(path = "/buscar")
+    @Override
     public List<Peritos> buscar(){
 
         return peritosRepository.findAll();
     }
 
-    @PostMapping(path = {"/guardar", "/actualizar"})
+    @Override
     public Peritos guardar(@RequestBody PeritosDto peritosDto){
 
         Peritos peritoData = this.convertDtoToPeritos(peritosDto);
@@ -38,7 +33,7 @@ public class PeritosService {
         return peritoData;
     }
 
-    @PostMapping( path = "/eliminar" )
+    @Override
     public String eliminar(@RequestBody PeritosDto peritosDto){
 
         Peritos peritoData = this.convertDtoToPeritos(peritosDto);
@@ -68,13 +63,13 @@ public class PeritosService {
         return perito;
     }
 
-    @GetMapping( path = "/buscar/por/ciudad/{ciudad}" )
+    @Override
     public List<Peritos> buscarPeritosPorCiudad(@PathVariable String ciudad){
 
         return peritosRepository.findByCiudadLike(ciudad);
     }
 
-    @GetMapping( path = "/buscar/sin/numeroVia" )
+    @Override
     public List<Peritos> buscarPeritosSinNumeroVia(){
 
         return peritosRepository.findByNumeroViaIsNull();

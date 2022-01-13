@@ -1,29 +1,22 @@
-package universales.proyecto2.apirest.service;
+package universales.proyecto2.apirest.imp;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import universales.proyecto2.apirest.dto.ClienteDto;
 import universales.proyecto2.apirest.entity.Cliente;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.ClienteRepository;
 import universales.proyecto2.apirest.repository.SegurosRepository;
+import universales.proyecto2.apirest.ws.ClienteServiceInterface;
 
 
-@RestController
-@RequestMapping("/cliente")
-@CrossOrigin
-
-
-public class ClienteService {
+@Component
+public class ClienteService implements ClienteServiceInterface{
     
     @Autowired
     ClienteRepository clienteRepository;
@@ -31,14 +24,13 @@ public class ClienteService {
     @Autowired
     SegurosRepository segurosRepository;
 
-
-    @GetMapping(path = "/buscar")
+    @Override
     public List<Cliente> respuesta(){
         
         return this.clienteRepository.findAll();
     }
 
-    @PostMapping( path = {"/guardar", "/actualizar"} )
+    @Override
     public Cliente guardar(@RequestBody ClienteDto clienteDto){
 
         Cliente clientData = this.convertDtoToCliente(clienteDto);
@@ -75,7 +67,7 @@ public class ClienteService {
         return newCliente;
     }
 
-    @PostMapping( path = "/eliminar" )
+    @Override
     public String eliminar(@RequestBody ClienteDto clienteDto){
 
         Cliente clientData = this.convertDtoToCliente(clienteDto);
@@ -83,13 +75,13 @@ public class ClienteService {
         return "Successful";
     }
     
-    @GetMapping(path = "/buscar/codPostal/{codPostal}")
+    @Override
     public List<Cliente> buscarPorCodPostal(@PathVariable String codPostal){
         
         return clienteRepository.findByCodPostal(codPostal);
     }
 
-    @GetMapping(path = "/buscar/apellidos/{apellido1}/or/{apellido2}")
+    @Override
     public List<Cliente> buscarPorApellidos(@PathVariable String apellido1, @PathVariable String apellido2){
         
         return clienteRepository.findByApellido1OrApellido2(apellido1, apellido2);

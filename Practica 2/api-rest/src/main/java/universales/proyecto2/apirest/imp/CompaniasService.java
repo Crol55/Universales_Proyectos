@@ -1,36 +1,32 @@
-package universales.proyecto2.apirest.service;
+package universales.proyecto2.apirest.imp;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import universales.proyecto2.apirest.dto.CompaniasDto;
 import universales.proyecto2.apirest.entity.Companias;
 
 import universales.proyecto2.apirest.repository.CompaniasRepository;
+import universales.proyecto2.apirest.ws.CompaniasServiceInteface;
 
-@RestController
-@RequestMapping("/companias")
-@CrossOrigin
-public class CompaniasService {
+
+@Component
+public class CompaniasService implements CompaniasServiceInteface{
     
     @Autowired 
     CompaniasRepository companiasRepository; 
 
-    @GetMapping(path = "/buscar")
+    @Override
     public List <Companias> buscar(){
         
         return companiasRepository.findAll();
     }
 
-    @PostMapping(path = {"/guardar", "actualizar"})
+    @Override
     public Companias guardar(@RequestBody CompaniasDto companiasDto) {
 
         Companias companiasData = this.convertDtoToCompanias(companiasDto);
@@ -39,7 +35,7 @@ public class CompaniasService {
         return companiasData;
     }
 
-    @PostMapping( path = "/eliminar" )
+    @Override
     public String eliminar(@RequestBody CompaniasDto companiasDto){
 
         Companias companiaData = this.convertDtoToCompanias(companiasDto);
