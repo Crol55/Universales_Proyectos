@@ -1,6 +1,7 @@
 package universales.proyecto2.apirest.imp;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import universales.proyecto2.apirest.entity.Cliente;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.ClienteRepository;
 import universales.proyecto2.apirest.repository.SegurosRepository;
+import universales.proyecto2.apirest.service.CatalogService;
 import universales.proyecto2.apirest.ws.ClienteServiceInterface;
 
 
@@ -23,6 +25,9 @@ public class ClienteService implements ClienteServiceInterface{
 
     @Autowired
     SegurosRepository segurosRepository;
+
+    @Autowired
+    CatalogService catalogService;
 
     @Override
     public List<Cliente> respuesta(){
@@ -48,6 +53,26 @@ public class ClienteService implements ClienteServiceInterface{
         return clientData;
     }
 
+    @Override
+    public String eliminar(@RequestBody ClienteDto clienteDto){
+
+        Cliente clientData = this.convertDtoToCliente(clienteDto);
+        clienteRepository.deleteById(clientData.getDniCl());
+        return "Successful";
+    }
+    
+    @Override
+    public List<Cliente> buscarPorCodPostal(@PathVariable String codPostal){
+        
+        return clienteRepository.findByCodPostal(codPostal);
+    }
+
+    @Override
+    public List<Cliente> buscarPorApellidos(@PathVariable String apellido1, @PathVariable String apellido2){
+        
+        return clienteRepository.findByApellido1OrApellido2(apellido1, apellido2);
+    }
+
     private Cliente convertDtoToCliente(ClienteDto clienteDto){
 
         Cliente newCliente = new Cliente();
@@ -68,23 +93,39 @@ public class ClienteService implements ClienteServiceInterface{
     }
 
     @Override
-    public String eliminar(@RequestBody ClienteDto clienteDto){
-
-        Cliente clientData = this.convertDtoToCliente(clienteDto);
-        clienteRepository.deleteById(clientData.getDniCl());
-        return "Successful";
-    }
-    
-    @Override
-    public List<Cliente> buscarPorCodPostal(@PathVariable String codPostal){
+    public List<Map<String, Object>> busquedaNativa() {
         
-        return clienteRepository.findByCodPostal(codPostal);
+        return this.catalogService.buscarClientes();
     }
 
     @Override
-    public List<Cliente> buscarPorApellidos(@PathVariable String apellido1, @PathVariable String apellido2){
+    public Cliente guardarNativa(ClienteDto clienteDto) {
         
-        return clienteRepository.findByApellido1OrApellido2(apellido1, apellido2);
+        Cliente cliente = this.convertDtoToCliente(clienteDto);
+
+        this.catalogService.insertCliente(cliente);
+        
+        return cliente;
     }
+
+    public Cliente actualizarNativa(ClienteDto clienteDto){
+
+        Cliente cliente = this.convertDtoToCliente(clienteDto);
+
+        this.catalogService.updateCliente(cliente.getNombreVia(), cliente.getObservaciones(), cliente.getDniCl());
+        
+        return cliente;
+    }
+
+    @Override
+    public Cliente eliminarNativa(ClienteDto clienteDto) {
+        
+        Cliente cliente = this.convertDtoToCliente(clienteDto);
+
+        this.catalogService.deleteCliente(cliente.getDniCl());
+
+        return cliente;
+    }
+
     
 }
