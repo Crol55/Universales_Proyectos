@@ -6,19 +6,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import universales.proyecto2.apirest.dto.FiltrarPolizaDto;
 import universales.proyecto2.apirest.dto.SegurosDto;
 
-
 @RestController
-@RequestMapping("/procedimiento")
+@RequestMapping("/funciones")
 @CrossOrigin
-public interface ProcedimientoServiceInterface {
+public interface FunctionServiceInterface {
 
-	@PostMapping(path = "/insertar/poliza")
-	public int insertPoliza( @RequestBody SegurosDto segurosDto);
-
-	@PostMapping(path = "/filtrar/poliza")
-	public FiltrarPolizaDto filtrarPoliza(@RequestBody SegurosDto segurosDto);
-	
+	@PostMapping(path= "/insert/poliza")
+    public int insertPolizaFunc(@RequestBody SegurosDto segurosDto);
 }

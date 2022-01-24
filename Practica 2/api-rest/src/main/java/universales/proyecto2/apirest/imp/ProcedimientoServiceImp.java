@@ -25,6 +25,6 @@ public class ProcedimientoServiceImp implements ProcedimientoServiceInterface{
 		return procedimientoService.filtrarPoliza(segurosDto);
 		
 	}
-	
+
 	
 }

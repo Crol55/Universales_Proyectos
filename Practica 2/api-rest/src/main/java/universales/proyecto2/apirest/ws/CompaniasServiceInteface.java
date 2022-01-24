@@ -27,5 +27,6 @@ public interface CompaniasServiceInteface {
 
     @PostMapping( path = "/eliminar" )
     public String eliminar(@RequestBody CompaniasDto companiasDto);
+    
 
 }

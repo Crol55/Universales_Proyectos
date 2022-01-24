@@ -1,8 +1,7 @@
 package universales.proyecto2.apirest.service;
 
+import java.math.BigDecimal;
 import java.sql.Types;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -23,11 +22,14 @@ import universales.proyecto2.apirest.dto.SegurosDto;
 @Service
 public class ProcedimientoService {
 
+	private static final String FECHA = "fecha"; 
+	 
 	@Autowired
     NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
 	
 	public int insertarPoliza(SegurosDto segurosDto){
 		
@@ -44,36 +46,45 @@ public class ProcedimientoService {
         return namedParameterJdbcTemplate.update(query, sqlParameterSource);
     }
 	
+	
 	public FiltrarPolizaDto filtrarPoliza (SegurosDto segurosDto) {
-		
-		/*Date date = null;
-		try {
-			date = new SimpleDateFormat("dd-MM-yyyy").parse("06-03-2022");//2022-03-07 "06-03-2022"
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} */
 		
 		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate);
 		simpleJdbcCall.withProcedureName("filtrarpoliza").withoutProcedureColumnMetaDataAccess().declareParameters(
 				new SqlParameter("dni_cl", Types.NUMERIC), 
 				new SqlOutParameter("ramo", Types.VARCHAR), 
-				new SqlInOutParameter("fecha", Types.DATE)
+				new SqlInOutParameter(FECHA, Types.DATE)
 		);
 		
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource().addValue("dni_cl", segurosDto.getClienteDniCl())
-				.addValue("fecha", segurosDto.getFechaInicio());
+				.addValue(FECHA, segurosDto.getFechaInicio());
 		
 		Map<String, Object> respuesta = simpleJdbcCall.execute(sqlParameterSource);
 		
 		FiltrarPolizaDto filtrarPolizaDto =  new FiltrarPolizaDto(); 
 		filtrarPolizaDto.setRamo( respuesta.get("ramo").toString() );
-		filtrarPolizaDto.setFechaVencimiento((Date) respuesta.get("fecha"));
-		
-		System.out.println(respuesta.get("ramo").toString());
-		
-		System.out.println("Creo que debio funcionar XD");
+		filtrarPolizaDto.setFechaVencimiento((Date) respuesta.get(FECHA));
 		
 		return filtrarPolizaDto;
+	}
+	
+	public int insertarPolizaFunction(SegurosDto segurosDto) {
+		
+		SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate);
+		simpleJdbcCall.withSchemaName("Practica2")
+			.withCatalogName("polizaPackage")
+			.withFunctionName("insert_poliza");
+		
+		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
+				.addValue("NUMPERO_POLIZA", segurosDto.getNumeroPoliza())
+				.addValue("RAMO", segurosDto.getRamo())
+		        .addValue("FECHA_INICIO", segurosDto.getFechaInicio())
+		        .addValue("FECHA_VENCIMIENTO", segurosDto.getFechaVencimiento())
+		        .addValue("CONDICIONES_PARTICULARES", segurosDto.getCondicionesParticulares())
+		        .addValue("OBSERVACIONES", segurosDto.getObservaciones())
+		        .addValue("cliente_dni_cl", segurosDto.getClienteDniCl());
+		
+		return simpleJdbcCall.executeFunction(BigDecimal.class, sqlParameterSource).intValue();
+		
 	}
 }
