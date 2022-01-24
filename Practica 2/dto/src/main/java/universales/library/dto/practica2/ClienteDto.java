@@ -1,34 +1,22 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 import java.util.List;
-
-import universales.proyecto2.apirest.entity.Seguros;
 
 public class ClienteDto {
     
     private Integer dniCl;
-
     private String nombreCl;
-
     private String apellido1;
- 
     private String apellido2;
-
-    private String claseVia;
-    
-    private String nombreVia;
-    
+    private String claseVia;    
+    private String nombreVia;   
     private String numeroVia;
-
     private String codPostal;
-
     private String ciudad;
-
     private String telefono;
-
     private String observaciones;
-
-    private List<Seguros> segurosList;
+    private List<SegurosDto> segurosList;
+    
 
     public Integer getDniCl() {
         return dniCl;
@@ -118,11 +106,11 @@ public class ClienteDto {
         this.observaciones = observaciones;
     }
 
-    public List<Seguros> getSegurosList() {
+    public List<SegurosDto> getSegurosList() {
         return segurosList;
     }
 
-    public void setSegurosList(List<Seguros> segurosList) {
+    public void setSegurosList(List<SegurosDto> segurosList) {
         this.segurosList = segurosList;
     }
 

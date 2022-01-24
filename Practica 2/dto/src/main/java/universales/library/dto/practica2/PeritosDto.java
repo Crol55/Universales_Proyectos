@@ -1,4 +1,4 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 public class PeritosDto {
     

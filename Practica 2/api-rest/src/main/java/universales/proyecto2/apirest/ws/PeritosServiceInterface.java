@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import universales.proyecto2.apirest.dto.PeritosDto;
+import universales.library.dto.practica2.PeritosDto;
 import universales.proyecto2.apirest.entity.Peritos;
 
 @RestController

@@ -1,10 +1,9 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import universales.proyecto2.apirest.entity.Companias;
 
 public class SegurosDto {
     
@@ -15,14 +14,14 @@ public class SegurosDto {
     private String condicionesParticulares;
     private String observaciones;
     private Integer clienteDniCl;
-    private List<Companias> companiasList = new ArrayList<>();
+    private List<CompaniasDto> companiasList = new ArrayList<>();
 
     
-    public List<Companias> getCompaniasList() {
+    public List<CompaniasDto> getCompaniasList() {
         return companiasList;
     }
 
-    public void setCompaniasList(List<Companias> companiasList) {
+    public void setCompaniasList(List<CompaniasDto> companiasList) {
         this.companiasList = companiasList;
     }
 

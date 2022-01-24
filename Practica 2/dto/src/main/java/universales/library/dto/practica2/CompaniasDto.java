@@ -1,9 +1,8 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import universales.proyecto2.apirest.entity.Seguros;
 
 public class CompaniasDto {
     
@@ -15,14 +14,14 @@ public class CompaniasDto {
     private String telefonoContratacion; 
     private String telefonoSiniestros; 
     private String notas;
-    private List<Seguros> segurosList = new ArrayList<>();
+    private List<SegurosDto> segurosList = new ArrayList<>();
     
 
-    public List<Seguros> getSegurosList() {
+    public List<SegurosDto> getSegurosList() {
         return segurosList;
     }
 
-    public void setSegurosList(List<Seguros> segurosList) {
+    public void setSegurosList(List<SegurosDto> segurosList) {
         this.segurosList = segurosList;
     }
 

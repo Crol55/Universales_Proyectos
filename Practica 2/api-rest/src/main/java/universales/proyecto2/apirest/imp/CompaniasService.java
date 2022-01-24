@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import universales.proyecto2.apirest.dto.CompaniasDto;
+import universales.library.dto.practica2.CompaniasDto;
 import universales.proyecto2.apirest.entity.Companias;
 
 import universales.proyecto2.apirest.repository.CompaniasRepository;
@@ -58,7 +58,6 @@ public class CompaniasService implements CompaniasServiceInteface{
         compania.setCodPostal(companiasDto.getCodPostal());
         compania.setTelefonoContratacion(companiasDto.getTelefonoContratacion());
         compania.setNotas(companiasDto.getNotas());
-        compania.setSegurosList(companiasDto.getSegurosList());
 
         return compania;
     }

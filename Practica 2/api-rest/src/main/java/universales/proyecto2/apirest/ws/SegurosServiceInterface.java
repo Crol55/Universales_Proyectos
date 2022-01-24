@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import universales.proyecto2.apirest.dto.SegurosDto;
+import universales.library.dto.practica2.SegurosDto;
 import universales.proyecto2.apirest.entity.Seguros;
 
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import universales.proyecto2.apirest.dto.SegurosDto;
+import universales.library.dto.practica2.SegurosDto;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.SegurosRepository;
 import universales.proyecto2.apirest.ws.SegurosServiceInterface;
@@ -83,7 +83,6 @@ public class SegurosService implements SegurosServiceInterface{
         seguro.setCondicionesParticulares(segurosDto.getCondicionesParticulares());
         seguro.setObservaciones(segurosDto.getObservaciones());
         seguro.setClienteDniCl(segurosDto.getClienteDniCl());
-        seguro.setCompaniasList(segurosDto.getCompaniasList());
 
         return seguro;
     }

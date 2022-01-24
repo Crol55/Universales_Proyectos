@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import universales.proyecto2.apirest.dto.ClienteDto;
+import universales.library.dto.practica2.ClienteDto;
 import universales.proyecto2.apirest.entity.Cliente;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.repository.ClienteRepository;
@@ -87,7 +87,6 @@ public class ClienteService implements ClienteServiceInterface{
         newCliente.setCiudad(clienteDto.getCiudad());
         newCliente.setTelefono(clienteDto.getTelefono());
         newCliente.setObservaciones(clienteDto.getObservaciones());
-        newCliente.setSegurosList(clienteDto.getSegurosList());
 
         return newCliente;
     }

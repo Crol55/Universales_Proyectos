@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import universales.proyecto2.apirest.dto.PeritosDto;
+import universales.library.dto.practica2.PeritosDto;
 import universales.proyecto2.apirest.entity.Peritos;
 import universales.proyecto2.apirest.repository.PeritosRepository;
 import universales.proyecto2.apirest.ws.PeritosServiceInterface;

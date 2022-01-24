@@ -1,11 +1,9 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 public class CompaniasSegurosDto {
     
     private Integer id; 
-    
     private Integer segurosNumeroPoliza;
-
     private String companiasNombreCompania;
 
     public Integer getId() {

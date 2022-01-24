@@ -1,8 +1,7 @@
-package universales.proyecto2.apirest.dto;
+package universales.library.dto.practica2;
 
 import java.util.Date;
 
-import universales.proyecto2.apirest.entity.Seguros;
 
 public class SiniestrosDto {
     
@@ -12,14 +11,14 @@ public class SiniestrosDto {
     private String aceptado;
     private String indemnizacion;
     private Integer peritosDniPerito;
-    private Seguros seguro;
+    private SegurosDto seguro;
 
 
-    public Seguros getSeguro() {
+    public SegurosDto getSeguro() {
         return seguro;
     }
 
-    public void setSeguro(Seguros seguro) {
+    public void setSeguro(SegurosDto seguro) {
         this.seguro = seguro;
     }
 
