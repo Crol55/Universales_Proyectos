@@ -21,10 +21,10 @@ import universales.proyecto2.apirest.entity.Seguros;
 public interface SegurosServiceInterface {
     
     @GetMapping(path = "/buscar")
-    public List<Seguros> buscaString();
+    public List<Seguros> buscar();
 
     @PostMapping(path = {"/guardar", "/actualizar"})
-    public Seguros buscar(@RequestBody SegurosDto segurosDto);
+    public Seguros guardar(@RequestBody SegurosDto segurosDto);
 
     @PostMapping( path = "/eliminar" )
     public String eliminar(@RequestBody SegurosDto segurosDto);

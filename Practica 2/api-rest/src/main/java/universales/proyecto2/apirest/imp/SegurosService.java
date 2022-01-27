@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import universales.library.dto.practica2.SegurosDto;
 import universales.proyecto2.apirest.entity.Seguros;
@@ -24,13 +23,13 @@ public class SegurosService implements SegurosServiceInterface{
 
 
     @Override
-    public List<Seguros> buscaString() {
+    public List<Seguros> buscar() {
         
         return this.segurosRepository.findAll();
     }
 
     @Override
-    public Seguros buscar(@RequestBody SegurosDto segurosDto) {
+    public Seguros guardar(SegurosDto segurosDto) {
         
         Seguros segurosData = this.convertDtoToSeguros(segurosDto);
         segurosRepository.save(segurosData);
@@ -39,7 +38,7 @@ public class SegurosService implements SegurosServiceInterface{
     }
 
     @Override
-    public String eliminar(@RequestBody SegurosDto segurosDto){
+    public String eliminar(SegurosDto segurosDto){
 
         Seguros seguroData = this.convertDtoToSeguros(segurosDto);
 
@@ -65,7 +64,7 @@ public class SegurosService implements SegurosServiceInterface{
     }
 
     @Override
-    public List<Seguros> buscarPorVigencia(@PathVariable String ramo) {
+    public List<Seguros> buscarPorVigencia( String ramo) {
     
         //"23/05/2023"
     

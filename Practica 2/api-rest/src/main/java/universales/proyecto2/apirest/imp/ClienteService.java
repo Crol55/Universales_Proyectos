@@ -5,8 +5,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import universales.library.dto.practica2.ClienteDto;
 import universales.proyecto2.apirest.entity.Cliente;
@@ -36,7 +34,7 @@ public class ClienteService implements ClienteServiceInterface{
     }
 
     @Override
-    public Cliente guardar(@RequestBody ClienteDto clienteDto){
+    public Cliente guardar(ClienteDto clienteDto){
 
         Cliente clientData = this.convertDtoToCliente(clienteDto);
 
@@ -44,17 +42,20 @@ public class ClienteService implements ClienteServiceInterface{
         clientData.setSegurosList(null);
 
         clienteRepository.save(clientData); 
-
-        for(Seguros seguro: segurosClientList)
-            seguro.setClienteDniCl(clientData.getDniCl());
-            
-        segurosRepository.saveAll(segurosClientList);
+           
+        if (segurosClientList != null) {
+        	
+        	for(Seguros seguro: segurosClientList)
+                seguro.setClienteDniCl(clientData.getDniCl());
+        	
+        	segurosRepository.saveAll(segurosClientList);
+        }
         
         return clientData;
     }
 
     @Override
-    public String eliminar(@RequestBody ClienteDto clienteDto){
+    public String eliminar(ClienteDto clienteDto){
 
         Cliente clientData = this.convertDtoToCliente(clienteDto);
         clienteRepository.deleteById(clientData.getDniCl());
@@ -62,13 +63,13 @@ public class ClienteService implements ClienteServiceInterface{
     }
     
     @Override
-    public List<Cliente> buscarPorCodPostal(@PathVariable String codPostal){
+    public List<Cliente> buscarPorCodPostal(String codPostal){
         
         return clienteRepository.findByCodPostal(codPostal);
     }
 
     @Override
-    public List<Cliente> buscarPorApellidos(@PathVariable String apellido1, @PathVariable String apellido2){
+    public List<Cliente> buscarPorApellidos(String apellido1, String apellido2){
         
         return clienteRepository.findByApellido1OrApellido2(apellido1, apellido2);
     }

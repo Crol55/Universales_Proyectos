@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import universales.library.dto.practica2.SiniestrosDto;
+import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.entity.Siniestros;
 import universales.proyecto2.apirest.repository.SiniestrosRepository;
 import universales.proyecto2.apirest.ws.SiniestrosServiceInterface;
@@ -27,7 +27,7 @@ public class SiniestrosService implements SiniestrosServiceInterface{
     }
 
     @Override
-    public Siniestros buscar(@RequestBody SiniestrosDto siniestrosDto) {
+    public Siniestros guardar(SiniestrosDto siniestrosDto) {
         
         Siniestros siniestroData = this.convertDtoToSiniestros(siniestrosDto);
         siniestrosRepository.save(siniestroData);
@@ -47,19 +47,19 @@ public class SiniestrosService implements SiniestrosServiceInterface{
     }
 
     @Override
-    public List<Siniestros> buscarPorAceptacion(@PathVariable String aceptacion){
+    public List<Siniestros> buscarPorAceptacion(String aceptacion){
         
         return siniestrosRepository.findByAceptadoLike(aceptacion);
     }
 
     @Override
-    public List<Siniestros> buscarPorNoAceptacion(@PathVariable String aceptacion){
+    public List<Siniestros> buscarPorNoAceptacion(String aceptacion){
         
         return siniestrosRepository.findByAceptadoNotLike(aceptacion);
     }
 
     @Override
-    public List<Siniestros> buscarPorIndemnizacion(@PathVariable String indemnizacion){
+    public List<Siniestros> buscarPorIndemnizacion(String indemnizacion){
         
         return siniestrosRepository.findByIndemnizacionLike(indemnizacion);
     }
@@ -73,8 +73,12 @@ public class SiniestrosService implements SiniestrosServiceInterface{
         siniestro.setAceptado(siniestrosDto.getAceptado());
         siniestro.setIndemnizacion(siniestrosDto.getIndemnizacion());
         siniestro.setPeritosDniPerito(siniestrosDto.getPeritosDniPerito());
-        //siniestro.setSeguro(siniestrosDto.getSeguro())
-
+        
+        Seguros seguro =  new Seguros();
+        seguro.setNumeroPoliza(siniestrosDto.getSeguro().getNumeroPoliza());
+        siniestro.setSeguro(seguro);
+        //siniestro.setSeguro(siniestrosDto.getSeguro())s
+        
         return siniestro;
     }
 }

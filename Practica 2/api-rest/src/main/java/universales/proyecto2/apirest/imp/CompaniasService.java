@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import universales.library.dto.practica2.CompaniasDto;
 import universales.proyecto2.apirest.entity.Companias;
@@ -27,7 +26,7 @@ public class CompaniasService implements CompaniasServiceInteface{
     }
 
     @Override
-    public Companias guardar(@RequestBody CompaniasDto companiasDto) {
+    public Companias guardar(CompaniasDto companiasDto) {
 
         Companias companiasData = this.convertDtoToCompanias(companiasDto);
         companiasRepository.save(companiasData);
@@ -36,7 +35,7 @@ public class CompaniasService implements CompaniasServiceInteface{
     }
 
     @Override
-    public String eliminar(@RequestBody CompaniasDto companiasDto){
+    public String eliminar(CompaniasDto companiasDto){
 
         Companias companiaData = this.convertDtoToCompanias(companiasDto);
 
@@ -57,6 +56,7 @@ public class CompaniasService implements CompaniasServiceInteface{
         compania.setNumeroVia(companiasDto.getNumeroVia());
         compania.setCodPostal(companiasDto.getCodPostal());
         compania.setTelefonoContratacion(companiasDto.getTelefonoContratacion());
+        compania.setTelefonoSiniestros(companiasDto.getTelefonoSiniestros());
         compania.setNotas(companiasDto.getNotas());
 
         return compania;

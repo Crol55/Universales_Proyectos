@@ -23,7 +23,7 @@ public interface SiniestrosServiceInterface {
     public List<Siniestros> buscaString();
 
     @PostMapping(path = {"/guardar", "/actualizar"})
-    public Siniestros buscar(@RequestBody SiniestrosDto siniestrosDto);
+    public Siniestros guardar(@RequestBody SiniestrosDto siniestrosDto);
 
     @PostMapping( path = "/eliminar" )
     public String eliminar(@RequestBody SiniestrosDto siniestrosDto);
@@ -33,6 +33,7 @@ public interface SiniestrosServiceInterface {
 
     @GetMapping( path = "/buscar/aceptacionDistinta/{aceptacion}" )
     public List<Siniestros> buscarPorNoAceptacion(@PathVariable String aceptacion);
+    
     @GetMapping( path = "/buscar/indemnizacion/{indemnizacion}" )
     public List<Siniestros> buscarPorIndemnizacion(@PathVariable String indemnizacion);
 

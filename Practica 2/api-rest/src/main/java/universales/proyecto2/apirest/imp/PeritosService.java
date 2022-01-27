@@ -26,7 +26,7 @@ public class PeritosService implements PeritosServiceInterface{
     }
 
     @Override
-    public Peritos guardar(@RequestBody PeritosDto peritosDto){
+    public Peritos guardar( PeritosDto peritosDto){
 
         Peritos peritoData = this.convertDtoToPeritos(peritosDto);
         this.peritosRepository.save(peritoData);
