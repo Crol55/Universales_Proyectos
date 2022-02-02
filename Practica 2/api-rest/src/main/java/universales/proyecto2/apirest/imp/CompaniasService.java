@@ -3,6 +3,7 @@ package universales.proyecto2.apirest.imp;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,16 +50,8 @@ public class CompaniasService implements CompaniasServiceInteface{
 
     private Companias convertDtoToCompanias(CompaniasDto companiasDto){
 
-        Companias compania = new Companias(); 
-        compania.setNombreCompania(companiasDto.getNombreCompania());
-        compania.setClaseVia(companiasDto.getClaseVia());
-        compania.setNombreVia(companiasDto.getNombreVia());
-        compania.setNumeroVia(companiasDto.getNumeroVia());
-        compania.setCodPostal(companiasDto.getCodPostal());
-        compania.setTelefonoContratacion(companiasDto.getTelefonoContratacion());
-        compania.setTelefonoSiniestros(companiasDto.getTelefonoSiniestros());
-        compania.setNotas(companiasDto.getNotas());
-
-        return compania;
+        ModelMapper modelMapper = new ModelMapper(); 
+        
+        return modelMapper.map(companiasDto, Companias.class);
     }
 }

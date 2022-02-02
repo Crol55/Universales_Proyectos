@@ -3,6 +3,7 @@ package universales.proyecto2.apirest.imp;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,20 +48,11 @@ public class PeritosService implements PeritosServiceInterface{
 
     private Peritos convertDtoToPeritos(PeritosDto peritosDto){
 
-        Peritos perito = new Peritos();
-        perito.setDniPerito(peritosDto.getDniPerito());
-        perito.setNombrePerito(peritosDto.getNombrePerito());
-        perito.setApellidoPerito(peritosDto.getApellidoPerito());
-        perito.setApellidoPerito2(peritosDto.getApellidoPerito2());
-        perito.setTelefonoContacto(peritosDto.getTelefonoContacto());
-        perito.setTelefonoOficina(peritosDto.getTelefonoOficina());
-        perito.setClaseVia(peritosDto.getClaseVia());
-        perito.setNombreVia(peritosDto.getNombreVia());
-        perito.setNumeroVia(peritosDto.getNumeroVia());
-        perito.setCodPostal(peritosDto.getCodPostal());
-        perito.setCiudad(peritosDto.getCiudad());
+        
 
-        return perito;
+        ModelMapper modelMapper = new ModelMapper(); 
+        
+        return modelMapper.map(peritosDto, Peritos.class);
     }
 
     @Override

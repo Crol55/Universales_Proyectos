@@ -3,6 +3,7 @@ package universales.proyecto2.apirest.imp;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,11 +47,8 @@ public class CompaniasSegurosService implements CompaniasSegurosServiceInterface
 
     private CompaniasSeguros convertDtoToCompaniasSeguros(CompaniasSegurosDto companiasSegurosDto){
 
-        CompaniasSeguros companiaSeguro = new CompaniasSeguros();
-        companiaSeguro.setId(companiasSegurosDto.getId());
-        companiaSeguro.setSegurosNumeroPoliza(companiasSegurosDto.getSegurosNumeroPoliza());
-        companiaSeguro.setCompaniasNombreCompania(companiasSegurosDto.getCompaniasNombreCompania());
-
-        return companiaSeguro;
+        ModelMapper modelMapper = new ModelMapper();
+        
+        return modelMapper.map(companiasSegurosDto, CompaniasSeguros.class);
     }
 }

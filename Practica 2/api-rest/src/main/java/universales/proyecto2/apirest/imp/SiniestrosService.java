@@ -3,9 +3,9 @@ package universales.proyecto2.apirest.imp;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import universales.library.dto.practica2.SiniestrosDto;
 import universales.proyecto2.apirest.entity.Seguros;
@@ -36,12 +36,13 @@ public class SiniestrosService implements SiniestrosServiceInterface{
     }
 
     @Override
-    public String eliminar(@RequestBody SiniestrosDto siniestrosDto){
+    public String eliminar(SiniestrosDto siniestrosDto){
 
-        Siniestros siniestroData = this.convertDtoToSiniestros(siniestrosDto);
-        Optional <Siniestros> siniestroExistente = siniestrosRepository.findById(siniestroData.getIdSiniestro());
+        
+        Optional <Siniestros> siniestroExistente = siniestrosRepository.findById(siniestrosDto.getIdSiniestro());
         if (siniestroExistente.isPresent()){
-            siniestrosRepository.delete(siniestroExistente.get());
+           
+            siniestrosRepository.deleteById(siniestrosDto.getIdSiniestro());
         }
         return "Successful";
     }
@@ -66,18 +67,12 @@ public class SiniestrosService implements SiniestrosServiceInterface{
 
     private Siniestros convertDtoToSiniestros(SiniestrosDto siniestrosDto){
 
-        Siniestros siniestro =  new Siniestros();
-        siniestro.setIdSiniestro(siniestrosDto.getIdSiniestro());
-        siniestro.setFechaSiniestro(siniestrosDto.getFechaSiniestro());
-        siniestro.setCausas(siniestrosDto.getCausas());
-        siniestro.setAceptado(siniestrosDto.getAceptado());
-        siniestro.setIndemnizacion(siniestrosDto.getIndemnizacion());
-        siniestro.setPeritosDniPerito(siniestrosDto.getPeritosDniPerito());
+        ModelMapper modelMapper = new ModelMapper(); 
+        Siniestros siniestro = modelMapper.map(siniestrosDto, Siniestros.class);
         
         Seguros seguro =  new Seguros();
         seguro.setNumeroPoliza(siniestrosDto.getSeguro().getNumeroPoliza());
-        siniestro.setSeguro(seguro);
-        //siniestro.setSeguro(siniestrosDto.getSeguro())s
+        siniestro.setSeguro(seguro);     
         
         return siniestro;
     }

@@ -3,6 +3,7 @@ package universales.proyecto2.apirest.imp;
 import java.util.List;
 import java.util.Map;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -75,21 +76,10 @@ public class ClienteService implements ClienteServiceInterface{
     }
 
     private Cliente convertDtoToCliente(ClienteDto clienteDto){
-
-        Cliente newCliente = new Cliente();
-        newCliente.setDniCl(clienteDto.getDniCl());
-        newCliente.setNombreCl(clienteDto.getNombreCl());
-        newCliente.setApellido1(clienteDto.getApellido1());
-        newCliente.setApellido2(clienteDto.getApellido2());
-        newCliente.setClaseVia(clienteDto.getClaseVia());
-        newCliente.setNombreVia(clienteDto.getNombreVia());
-        newCliente.setNumeroVia(clienteDto.getNumeroVia());
-        newCliente.setCodPostal(clienteDto.getCodPostal());
-        newCliente.setCiudad(clienteDto.getCiudad());
-        newCliente.setTelefono(clienteDto.getTelefono());
-        newCliente.setObservaciones(clienteDto.getObservaciones());
-
-        return newCliente;
+    
+        ModelMapper	modelMapper = new ModelMapper(); 
+       
+        return modelMapper.map(clienteDto, Cliente.class);
     }
 
     @Override

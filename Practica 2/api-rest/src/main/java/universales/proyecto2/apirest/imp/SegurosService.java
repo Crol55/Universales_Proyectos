@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,16 +75,9 @@ public class SegurosService implements SegurosServiceInterface{
 
     private Seguros convertDtoToSeguros(SegurosDto segurosDto){
 
-        Seguros seguro = new Seguros();
-        seguro.setNumeroPoliza(segurosDto.getNumeroPoliza());
-        seguro.setRamo(segurosDto.getRamo());
-        seguro.setFechaInicio(segurosDto.getFechaInicio());
-        seguro.setFechaVencimiento(segurosDto.getFechaVencimiento());
-        seguro.setCondicionesParticulares(segurosDto.getCondicionesParticulares());
-        seguro.setObservaciones(segurosDto.getObservaciones());
-        seguro.setClienteDniCl(segurosDto.getClienteDniCl());
-
-        return seguro;
+        ModelMapper modelMapper = new ModelMapper();
+        
+        return modelMapper.map(segurosDto, Seguros.class);
     }
     
 }
