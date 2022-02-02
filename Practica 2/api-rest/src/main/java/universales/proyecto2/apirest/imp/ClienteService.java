@@ -40,7 +40,7 @@ public class ClienteService implements ClienteServiceInterface{
 
         List<Seguros> segurosClientList = clientData.getSegurosList(); 
         clientData.setSegurosList(null);
-
+        
         clienteRepository.save(clientData); 
            
         if (segurosClientList != null) {

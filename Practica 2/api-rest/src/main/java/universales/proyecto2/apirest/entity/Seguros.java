@@ -14,8 +14,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 
 
+@Data
 @Entity
 @Table(name = "SEGUROS")
 public class Seguros implements Serializable{
@@ -60,67 +62,4 @@ public class Seguros implements Serializable{
     private List<Companias> companiasList = new ArrayList<>();
 
     
-    public List<Companias> getCompaniasList() {
-        return companiasList;
-    }
-
-    public void setCompaniasList(List<Companias> companiasList) {
-        this.companiasList = companiasList;
-    }
-
-    public Integer getNumeroPoliza() {
-        return numeroPoliza;
-    }
-
-    public void setNumeroPoliza(Integer numeroPoliza) {
-        this.numeroPoliza = numeroPoliza;
-    }
-
-    public String getRamo() {
-        return ramo;
-    }
-
-    public void setRamo(String ramo) {
-        this.ramo = ramo;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
-    }
-
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        this.fechaVencimiento = fechaVencimiento;
-    }
-
-    public String getCondicionesParticulares() {
-        return condicionesParticulares;
-    }
-
-    public void setCondicionesParticulares(String condicionesParticulares) {
-        this.condicionesParticulares = condicionesParticulares;
-    }
-
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public Integer getClienteDniCl() {
-        return clienteDniCl;
-    }
-
-    public void setClienteDniCl(Integer clienteDniCl) {
-        this.clienteDniCl = clienteDniCl;
-    }  
 }
