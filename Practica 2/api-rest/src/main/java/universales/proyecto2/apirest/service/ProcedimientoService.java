@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Service;
 
-import universales.library.dto.practica2.FiltrarPolizaDto;
-import universales.library.dto.practica2.SegurosDto;
+import universales.proyecto2.apirest.dto.FiltrarPolizaDto;
+import universales.proyecto2.apirest.dto.SegurosDto;
 
 @Service
 public class ProcedimientoService {

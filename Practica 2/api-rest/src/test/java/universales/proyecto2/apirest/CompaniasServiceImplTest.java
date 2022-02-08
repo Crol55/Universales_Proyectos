@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import universales.library.dto.practica2.CompaniasDto;
+import universales.proyecto2.apirest.dto.CompaniasDto;
 import universales.proyecto2.apirest.entity.Companias;
 import universales.proyecto2.apirest.imp.CompaniasService;
 

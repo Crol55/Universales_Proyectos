@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import universales.library.dto.practica2.SegurosDto;
-import universales.library.dto.practica2.SiniestrosDto;
+import universales.proyecto2.apirest.dto.SegurosDto;
+import universales.proyecto2.apirest.dto.SiniestrosDto;
 import universales.proyecto2.apirest.entity.Siniestros;
 import universales.proyecto2.apirest.imp.SiniestrosService;
 

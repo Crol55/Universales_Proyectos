@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import universales.library.dto.practica2.SiniestrosDto;
+import universales.proyecto2.apirest.dto.SiniestrosDto;
 import universales.proyecto2.apirest.entity.Seguros;
 import universales.proyecto2.apirest.entity.Siniestros;
 import universales.proyecto2.apirest.repository.SiniestrosRepository;

@@ -1,4 +1,4 @@
-package universales.library.dto.practica2;
+package universales.proyecto2.apirest.dto;
 
 import java.util.ArrayList;
 import java.util.Date;
