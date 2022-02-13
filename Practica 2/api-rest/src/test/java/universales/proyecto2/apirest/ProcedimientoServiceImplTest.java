@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import universales.proyecto2.apirest.dto.FiltrarPolizaDto;
 import universales.proyecto2.apirest.dto.SegurosDto;
+import universales.proyecto2.apirest.repository.SegurosRepository;
 import universales.proyecto2.apirest.service.ProcedimientoService;
 
 @SpringBootTest
@@ -19,11 +20,17 @@ class ProcedimientoServiceImplTest {
 	@Autowired 
 	ProcedimientoService procedimientoService; 
 	
+	@Autowired 
+	SegurosRepository segurosRepository;
+	
 	@Test
 	void insertPoliza() {
 		
+		
+		Integer polizaTemporal = 0;
+		
 		SegurosDto segurosDto =  new SegurosDto();
-		segurosDto.setNumeroPoliza(0);
+		segurosDto.setNumeroPoliza(polizaTemporal);
 		segurosDto.setRamo("Seguro de vida");
 		segurosDto.setFechaInicio(new Date());
 		segurosDto.setFechaVencimiento(new Date());
@@ -32,6 +39,9 @@ class ProcedimientoServiceImplTest {
 		segurosDto.setClienteDniCl(1);
 		
 		int res =  this.procedimientoService.insertarPoliza(segurosDto);
+		if (res == 1)
+			segurosRepository.deleteById(polizaTemporal);
+		
 		assertEquals(1, res);
 	}
 	
